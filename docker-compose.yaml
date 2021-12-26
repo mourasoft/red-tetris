@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+    front:
+        container_name: front
+        build: ./front      
+        ports:
+            - '3000:3000'
+        volumes:
+            - ./front:./app/
+    server:
+        container_name: server
+        build: ./server
+        ports:
+            - "3333:3333"
+        environment:
+            - DATABASE_URL=mongodb://mongo/code00
+            - PORT=3333
+        volumes:
+            - ./server:./app/
+    mongo:
+        image: mongo:latest
+        volumes:
+            - mongodata:/data/db
+        ports:
+            - 27017:27017
+volumes:
+  mongodata:
