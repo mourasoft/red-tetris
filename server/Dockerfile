@@ -1,13 +1,17 @@
 FROM node:alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package.json .
 
 
-COPY ./ ./
+RUN npm i -g @nestjs/cli
+RUN npm config set unsafe - perm true
+RUN npm install
 
-RUN npm i
+
+COPY . .
+
 
 
 CMD ["npm", "run", "start:dev"]
